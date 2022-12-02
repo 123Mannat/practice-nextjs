@@ -10,7 +10,7 @@ const Head3 = () => {
             <li className="float-left d-inline-block m-3"><i className="fa fa-pinterest-p text-white"></i></li>
         </ul>
         </div>
-    )
+    )   
 }
 
 export default Head3;
