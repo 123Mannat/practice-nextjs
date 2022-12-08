@@ -1,10 +1,10 @@
 import React from 'react'
 import Link from 'next/link';
 
-
 export const getStaticProps = async () => {
     //api call
-    const response = await fetch('https://fakestoreapi.com/products');
+    //const response = await fetch('https://fakestoreapi.com/products');
+    const response = await fetch(process.env.API_URL);
     // console.log(response);
     const data = await response.json(); //to convert stringified json to parsed json
     // console.log(data);
@@ -12,8 +12,6 @@ export const getStaticProps = async () => {
         props: {productData: data}
     }
 }
-
-
 //products
 const Batches = (props) => {
     console.log('props', props);
@@ -27,5 +25,4 @@ const Batches = (props) => {
             </div>
     )
 }
-
-export default Batches
+export default Batches;

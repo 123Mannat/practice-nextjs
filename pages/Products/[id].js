@@ -60,5 +60,4 @@ const CoursesID =({productData}) =>{
         </div>
     )
 }
-
 export default CoursesID

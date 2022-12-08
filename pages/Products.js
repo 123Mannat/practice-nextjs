@@ -29,11 +29,7 @@ const Products=(props) =>{
                 <p className={Styles.elipsis}>{item.description}</p>
                 <h6>Rs. {item.price}</h6>
                 </div>
-                </div>
-            
-
-            
-            
+                </div>     
         ))}
         </div>
         </div>
