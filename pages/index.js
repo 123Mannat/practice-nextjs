@@ -62,7 +62,7 @@ export default function Home() {
         >
           Powered by{' '}
           <span className={styles.logo}>
-            <Image src="/logo.png" alt=" Logo" width={72} height={16} />
+            <Image src="/logo.png" alt=" Logo" width={72} height={20} />
           </span>
         </a>
       </footer>
