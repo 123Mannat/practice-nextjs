@@ -1,63 +1,39 @@
-import React from "react";
-import Link from "next/link";
+import React from 'react';
+import { useRouter } from 'next/router';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faCartPlus,
-    faHeartCirclePlus
-    
-  } from "@fortawesome/free-solid-svg-icons";
-  
-// SSR (Server Side Rendering) - HTML pages are built on server request
-
-export async function getServerSideProps(context) {
-    try {
-        const { id } = context.query;
-        const res = await fetch('https://fakestoreapi.com/products/' + id);
-        const data = await res.json();
-        return {
-            props: {productData: data }
-        };
-    } catch (error) {
-        return {
-            notFound: true
-        }
-    }
-
-}
-
-const CoursesID =({productData}) =>{
-     // console.log(productData);
+// make api call using id
+// https://fakestoreapi.com/products/1
+// SSR page - e commerce
+export const getServerSideProps = async (context) => {
+    console.log('context', context);
+    // Do not use useRouter in serversideprops
     // const router = useRouter();
     // const {id} = router.query;
-    // console.log('id' - id);
-    //console.log('props-', productData.data)
+    const id = context.params.id;
+    console.log('id' - id);
+    //api call
+    const response = await fetch(process.env.API_URL+id);
+    // console.log(response);
+    const data = await response.json(); //to convert stringified json to parsed json
+    // console.log(data);
+    return {
+        props: {productData: data}
+    }
+}
 
+const ProductId = ({productData}) => {
+    // console.log(productData);
+    const router = useRouter();
+    const {id} = router.query;
+    console.log('id' - id);
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col-12">
-                    <h1>Product Detail Page -SSR Method</h1>
-                </div>
+        <div>
+                <h2>This is product page - {productData.title}</h2>
+                {/* {productData.map(item => (
+                    <div>{item.title}</div>
+                ))} */}
             </div>
-
-            <div className="row">
-                <div className="col-6">
-                    <div><img src={productData.image} width="100%" /></div>
-                </div>
-                <div className="col-6">
-                    <h3>Products : {productData.title}</h3>
-                    <p><strong>Category:</strong> {productData.category}</p>
-                    <p><strong>Descriptions:</strong> {productData.description}</p>
-                    <h5>Rating : {productData.rating.rate}, Count : {productData.rating.count}</h5>
-                    <p><strong>Price:</strong> ${productData.price}</p>
-                    <div><Link className="btn btn-large btn-secondary m-1" href="#"><FontAwesomeIcon icon={faCartPlus} /> Add To Cart</Link>
-                    <Link className="btn btn-large btn-outline-secondary m-1" href="#"><FontAwesomeIcon icon={faHeartCirclePlus} /> Wishlist</Link></div>
-                   
-                </div>
-
-            </div>
-        </div>
     )
 }
-export default CoursesID
+
+export default ProductId
